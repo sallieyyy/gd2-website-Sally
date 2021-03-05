@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<a href="firstdream.html"><img src="Dreamlogo.GIF" width = "90" height = "85" alt="d1" align="absolute" ></a>
+    <style>
+        img {
+        position:fixed;
+        z-index:1;
+        left:680px;
+        top:430px;
+        }
+
+    <a><audio controls="controls" height="100" width="100">
+        <source src="Fleurie,Ruslan - Take Me With You.mp3" type="audio/mp3" />
+        <source src="Fleurie,Ruslan - Take Me With You.ogg" type="audio/ogg" />
+    <embed height="100" width="100" src="Fleurie,Ruslan - Take Me With You.mp3" />
+    </audio>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sally's Dream</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas{
+            z-index:0;
+        }
+
+        body{
+            overflow: hidden;
+            background-color: #000;
+        }
+        h1{
+            position: absolute;
+            line-height: 50px;
+            letter-spacing: 5px;
+            color: #fff;
+            width: 500px;
+            top: 40%;
+            left: 40%;
+            margin-left: 0px;
+            font-size: 50px;
+            font-family: Baskerville;
+        }
+
+    </style>
+
+</head>
+<html>
+
+<body>
+
+    <h1>
+
+    </h1>
+    <canvas></canvas>
+    <script>
+        var canvas=document.querySelector("canvas");
+            ctx=canvas.getContext("2d");
+            w=canvas.width=window.innerWidth;
+            h=canvas.height=window.innerHeight;
+            var canvas2=document.createElement("canvas");
+                ctx2=canvas2.getContext("2d");
+                canvas2.width=50;
+                canvas2.height=50;
+            var a=canvas2.width/2;
+        var grandient=ctx.createRadialGradient(a,a,0,a,a,a);
+            grandient.addColorStop(0.025,'#fff');
+            grandient.addColorStop(0.1, 'hsl(220,59%,18%)');
+            grandient.addColorStop(0.025, 'hsl(220,60%,33%)');
+            grandient.addColorStop(1,"transparent");
+            ctx2.fillStyle=grandient;
+            ctx2.beginPath();
+            ctx2.arc(a,a,a,0,Math.PI*2);
+            ctx2.fill();
+            ctx2.closePath();
+            var stars=[];
+            var count=0;
+            function Star(){
+                this.pos=Math.floor(Math.random()* w/2-100);
+                this.r=Math.floor(Math.random()*100);
+                this.dx=w/2;
+                this.dy=h/2;
+                this.rand=Math.floor(Math.random()*360);
+                this.speed=this.pos/100000;
+                stars[count]=this;
+                count ++;
+            }
+            Star.prototype.draw=function(){
+                var x=Math.sin(this.rand+1)* this.pos+this.dx;
+                    y=Math.cos(this.rand)*this.pos/2+this.dy;
+                ctx.drawImage(canvas2,x-this.r/2,y-this.r/2,this.r,this.r);
+                this.rand=this.rand+this.speed;
+            }
+            for(var i=0;i<1000;i++){
+                new Star();
+            }
+            function anmit(){
+                ctx.clearRect(0,0,w,h);
+                for(var i=0;i<stars.length;i++){
+                    stars[i].draw();
+                }
+                requestAnimationFrame(anmit);
+            }
+            anmit();
+            var oH=document.getElementsByTagName("h1")[0];
+            var arr=["Welcome to my","梦","夢","꿈","DREAM"],
+                index=0,
+                arrLen=arr.length,
+                strLen=arr[0].length;
+                pos=0,
+                row=5,
+                str="",
+                timer=null;
+
+            function print() {
+                while(row<index){
+                    str=str+arr[row]+"<br>";
+                    row++;
+                }
+                oH.innerHTML=str+arr[index].substring(0,pos);
+                if(pos==strLen){
+                    index++;
+                    pos =0;
+                    if(index<arr.length){
+                        strLen=arr[index].length;
+                        timer=setTimeout(print,250);
+                    }
+                }else{
+                    pos++;
+                    timer=setTimeout(print,250);
+                }
+            }
+            setTimeout(print,250);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
